@@ -1,11 +1,13 @@
 <html>
 <head>
-  <title>Todo App</title>
+  <title>Dictionary</title>
 </head>
 <body>
-<ul>
-  {{result}}
+<form method="post" action="/form">
+  <input type="text" name="pl_translation" value="{{output}}" readonly>
+  <input type="text" name="nl_translation" />
+  <input type="submit" value="check" />
+</form>
 
-</ul>
 </body>
 </html>
