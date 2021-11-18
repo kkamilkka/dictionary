@@ -16,34 +16,34 @@ class Todo(db.Model):
     description2 = db.Column(db.String(), nullable=False)
 
     def __repr__(self):
-        global nl_trans
-        nl_trans = self.description2
-        return f'{self.description1}'
+        return f'{self.description1, self.description2}'
 
 
 db.create_all()
-
-
-@app.route('/form', methods=['post'])
-def form():
-    pl_translation = request.form['pl_translation']
-    nl_translation = request.form['nl_translation']
-    if nl_translation == nl_trans:
-        return render_template('goed.html', pl_translation=pl_translation, nl_translation=nl_translation)
-    else:
-        print('zle')
-
-    #return render_template('index.html')
 
 
 @app.route('/')
 def index():
     rand = db.session.query(func.count(Todo.id)).scalar()
     random_number = random.randrange(1, rand + 1)
-
     output = Todo.query.get(random_number)
-
     return render_template('index.html', output=output)
+
+
+@app.route('/form', methods=['post'])
+def form():
+    rand = db.session.query(func.count(Todo.id)).scalar()
+    random_number = random.randrange(1, rand + 1)
+    output = Todo.query.get(random_number)
+    pl_translation = Todo.query(dict.description1).filter(dict.id == random_number)
+    nl_translation = Todo.query(dict.description2).filter(dict.id == random_number)
+    nl_trans = request.form['nl_translation']
+    if nl_translation == nl_trans:
+        return render_template('goed.html', pl_translation=pl_translation, nl_translation=nl_translation)
+    else:
+        print('zle')
+
+    # return render_template('index.html')
 
 
 if __name__ == '__main__':
