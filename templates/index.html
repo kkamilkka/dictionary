@@ -1,13 +1,7 @@
-<html>
-<head>
-  <title>Dictionary</title>
-</head>
-<body>
-<form method="post" action="/form">
-  <input type="text" name="pl_translation" value="{{output}}" readonly>
-  <input type="text" name="nl_translation" />
-  <input type="submit" value="check" />
-</form>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block main %}
+<p>some content on the home page</p>
+{% endblock %}
+
+
